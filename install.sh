@@ -38,7 +38,7 @@ echo "[OK] Chromium installed"
 echo ""
 
 # Skill file content — {{PROJECT_DIR}} replaced by sed at install time
-read -r -d '' SKILL_TEMPLATE << 'SKILL_EOF'
+SKILL_TEMPLATE=$(cat << 'SKILL_EOF'
 ---
 name: wechat
 description: 将微信公众号文章 URL 转换为 Markdown 文件，图片保留网络链接。
@@ -76,6 +76,7 @@ cd "{{PROJECT_DIR}}" && python wechat_to_md.py "$ARGUMENTS"
 - 文章标题、来源、发布时间（从文件头部提取）
 - 文件前 30 行内容预览
 SKILL_EOF
+)
 
 SKILL_CONTENT=$(echo "$SKILL_TEMPLATE" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
 
